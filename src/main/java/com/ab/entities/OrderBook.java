@@ -8,6 +8,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
@@ -20,6 +22,10 @@ public class OrderBook {
   @Column(name = "order_book_id")
   private int orderBookId;
 
+  @ManyToOne
+	@JoinColumn(name = "user_id")
+	private User userId;
+
   @OneToMany(mappedBy = "orderBook", cascade = CascadeType.ALL)
   private List<Order> orders;
   
@@ -29,6 +35,14 @@ public class OrderBook {
 
   public void setOrderBookId(int orderBookId) {
     this.orderBookId = orderBookId;
+  }
+
+  public User getUserId() {
+    return userId;
+  }
+
+  public void setUserId(User userId) {
+    this.userId = userId;
   }
 
   public List<Order> getOrders() {

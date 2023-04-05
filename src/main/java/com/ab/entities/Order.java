@@ -19,16 +19,19 @@ public class Order {
   private int orderId;
 
   @Column(name = "order_type", nullable = false)
-  private String type;
+  private String orderType;
 
   @Column(name = "order_price", nullable = false)
-  private double price;
+  private double orderPrice;
 
   @Column(name = "order_amount", nullable = false)
-  private int amount;
+  private int orderAmount;
 
   @Column(name = "order_status", nullable = false)
-  private String status;
+  private String orderStatus;
+
+  @Column(name = "order_date", nullable = false)
+  private String orderDate;
 
   @ManyToOne(fetch = FetchType.EAGER)
   @JoinColumn(name = "order_book_id", referencedColumnName = "order_book_id")
@@ -43,35 +46,43 @@ public class Order {
   }
 
   public String getType() {
-    return type;
+    return orderType;
   }
 
   public void setType(String type) {
-    this.type = type;
+    this.orderType = type;
   }
 
   public double getPrice() {
-    return price;
+    return orderPrice;
   }
 
   public void setPrice(double price) {
-    this.price = price;
+    this.orderPrice = price;
   }
 
   public int getAmount() {
-    return amount;
+    return orderAmount;
   }
 
   public void setAmount(int amount) {
-    this.amount = amount;
+    this.orderAmount = amount;
   }
 
   public String getStatus() {
-    return status;
+    return orderStatus;
   }
 
   public void setStatus(String status) {
-    this.status = status;
+    this.orderStatus = status;
+  }
+
+  public String getOrderDate() {
+    return orderDate;
+  }
+
+  public void setOrderDate(String orderDate) {
+    this.orderDate = orderDate;
   }
 
   public OrderBook getOrderBook() {
@@ -89,17 +100,17 @@ public class Order {
 
   public Order(int orderId, String type, double price, int amount, String status, OrderBook orderBook) {
     this.orderId = orderId;
-    this.type = type;
-    this.price = price;
-    this.amount = amount;
-    this.status = status;
+    this.orderType = type;
+    this.orderPrice = price;
+    this.orderAmount = amount;
+    this.orderStatus = status;
     this.orderBook = orderBook;
   }
 
   
   // toString method
   public String toString(){
-    return "Order [orderId=" + orderId + ", type=" + type + ", price=" + price + ", amount=" + amount + ", status=" + status + "]";
+    return "Order [orderId=" + orderId + ", type=" + orderType + ", price=" + orderPrice + ", amount=" + orderAmount + ", status=" + orderStatus + ", date=" + orderDate + "]";
   }
 }
 
