@@ -12,7 +12,7 @@
 	<div class="page">
 		<h1>Create a new order</h1>
 		<div class="form">
-			<form method="POST" action="/addOrderProcess">
+			<form method="POST" action="/newOrderProcess">
 				<p>
 					<label for="orderType">OrderType:</label> <input name="orderType"
 						id="orderType" />

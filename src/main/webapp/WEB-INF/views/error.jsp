@@ -12,7 +12,7 @@
 	<div class="page">
 		<h1>Error</h1>
 		<div>
-			<a href="/home"><button>Home</button></a>
+			<a href="/"><button>Home</button></a>
 		</div>
 	</div>
 

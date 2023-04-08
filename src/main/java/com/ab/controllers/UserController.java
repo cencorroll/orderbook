@@ -24,9 +24,9 @@ public class UserController {
 	}
 
 	// Just for checking
-	@GetMapping("/accountfailure")
-	public String accountfailure() {
-		return "accountfailure";
+	@GetMapping("/orderfailure")
+	public String orderfailure() {
+		return "orderfailure";
 	}
 	
 	// Just for checking
@@ -59,11 +59,6 @@ public class UserController {
 	@GetMapping("/login")
 	public String login() {
 		return "login";
-	}
-
-	@GetMapping("/account")
-	public String account() {
-		return "account";
 	}
 
 	@RequestMapping(value = "/loginProcess", method = { RequestMethod.GET, RequestMethod.POST })

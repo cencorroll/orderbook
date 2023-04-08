@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.ab.entities.Order;
+import com.ab.entities.User;
 import com.ab.repositories.OrderRepository;
 
 @Service
@@ -15,10 +16,15 @@ public class OrderService {
   private OrderRepository orderRepository;
 
   public Order addOrder(Order order) {
+    List<Order> existingOrder = orderRepository.findById(order.getOrderId());
+    if (existingOrder != null) {
+      throw new IllegalArgumentException("Order already exists");
+    } else {
     if (order.getAmount() == 0 || order.getPrice() == 0 || order.getType() == null || order.getStatus() == null)
       throw new IllegalArgumentException("Order cannot be null or empty");
       
     return orderRepository.save(order);
+    }
   }
 
   public Order updateOrder(Order order) {
@@ -33,15 +39,11 @@ public class OrderService {
     return orderRepository.findAll();
   }
 
-  // public List<Order> getOrdersByOrderType(String orderType) {
-  //   return orderRepository.findByOrderType(orderType);
-  // }
+  public List<Order> findByUserId(User userId) {
+    return orderRepository.findByUserId(userId);
+  }
 
-  // public List<Order> getOrdersByStatus(String orderStatus) {
-  //   return orderRepository.findByStatus(orderStatus);
-  // }
-
-  // public List<Order> getOrdersByOrderBook(int orderBookId) {
-  //   return orderRepository.findByOrderBookId(orderBookId);
-  // }
+  public List<Order> findByType(String type) {
+    return orderRepository.findByType(type);
+  }
 }

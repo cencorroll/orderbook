@@ -27,6 +27,7 @@ li {
 					User loggedInUser = (User) session.getAttribute("loggedInUser");
 					if (loggedInUser == null) {
 					%>
+          <li><a href="/"><button>Home</button></a></li>
 					<li><a href="login">
 							<button>Login to your Account</button>
 					</a></li>

@@ -1,6 +1,7 @@
 package com.ab.entities;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -62,6 +63,23 @@ public class OrderBook {
     this.orderBookId = orderBookId;
     this.orders = orders;
   }
+
+  public List<Order> allBuyList = orders.stream().filter(o -> o.getType().equals("buy")).collect(Collectors.toList());
+
+  public List<Order> allSellList = orders.stream().filter(o -> o.getType().equals("sell")).collect(Collectors.toList());
+
+  public void removeOrder(Order order) {
+    orders.removeIf(o -> o.getOrderId() == order.getOrderId());
+}
+
+public void updateOrder(Order order) {
+  for (int i = 0; i < orders.size(); i++) {
+      if (orders.get(i).getOrderId() == order.getOrderId()) {
+          orders.set(i, order);
+          break;
+      }
+  }
+}
 
   // toString method
   public String toString() {

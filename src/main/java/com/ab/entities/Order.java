@@ -33,9 +33,13 @@ public class Order {
   @Column(name = "order_date", nullable = false)
   private String orderDate;
 
-  @ManyToOne(fetch = FetchType.EAGER)
+  @ManyToOne(fetch = FetchType.LAZY)
   @JoinColumn(name = "order_book_id", referencedColumnName = "order_book_id")
   private OrderBook orderBook;
+
+  @ManyToOne(fetch = FetchType.LAZY)
+  @JoinColumn(name = "user_id", referencedColumnName = "user_id")
+  private User userId;
 
   public int getOrderId() {
     return orderId;
@@ -93,24 +97,35 @@ public class Order {
     this.orderBook = orderBook;
   }
 
+  public User getUserId() {
+    return userId;
+  }
+
+  public void setUserId(User userId) {
+    this.userId = userId;
+  }
+
   // Constructors
   public Order() {
     super();
   }
 
-  public Order(int orderId, String type, double price, int amount, String status, OrderBook orderBook) {
+  public Order(int orderId, String type, double price, int amount, String status, String orderDate, OrderBook orderBook, User userId) {
+    super();
+    this.userId = userId;
     this.orderId = orderId;
     this.orderType = type;
     this.orderPrice = price;
     this.orderAmount = amount;
     this.orderStatus = status;
+    this.orderDate = orderDate;
     this.orderBook = orderBook;
   }
 
-  
   // toString method
-  public String toString(){
-    return "Order [orderId=" + orderId + ", type=" + orderType + ", price=" + orderPrice + ", amount=" + orderAmount + ", status=" + orderStatus + ", date=" + orderDate + "]";
+  @Override
+  public String toString() {
+    return "Order [orderId=" + orderId + ", type=" + orderType + ", price=" + orderPrice + ", amount=" + orderAmount + ", status=" + orderStatus + ", orderDate=" + orderDate + ", orderBook=" + orderBook + ", userId=" + userId + "]";
   }
 }
 
