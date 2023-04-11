@@ -11,7 +11,7 @@
 </head>
 <body>
 	<h1>Current Orders</h1>
-	<table>
+	<table border="1">
 		<thead>
 			<tr>
 				<th>Order ID</th>

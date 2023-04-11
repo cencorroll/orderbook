@@ -32,8 +32,16 @@ public class TradingEngine {
     List<OrderHistory> buyOrderHistoryList = orderHistoryService.findByType("buy");
     List<OrderHistory> sellOrderHistoryList = orderHistoryService.findByType("sell");
 
-    System.out.println("buy orders ------> " + buyOrders);
-    System.out.println("sell orders ------> " + sellOrders);
+    System.out.println("buy orders:");
+    for (Order buyOrder : buyOrders) {
+        System.out.println(buyOrder);
+    }
+    
+    System.out.println("sell orders:");
+    for (Order sellOrder : sellOrders) {
+        System.out.println(sellOrder);
+    }
+    
 
     boolean orderMatched = false;
 
@@ -118,45 +126,6 @@ public class TradingEngine {
         break;
       }
     }
-
-    // User user = (User) session.getAttribute("loggedInUser");
-
-    // OrderBook orderBook = orderBookservice.findOrderBookByUserId(user);
-
-    // for (Order buyOrder : buyOrders) {
-    // for (Order sellOrder : sellOrders) {
-    // if (buyOrder.getPrice() >= sellOrder.getPrice()) {
-    // // Logic to fill, partially fill, or not fill the order
-    // if (buyOrder.getAmount() == sellOrder.getAmount()) {
-    // buyOrder.setStatus("filled");
-    // sellOrder.setStatus("filled");
-    // } else if (buyOrder.getAmount() > sellOrder.getAmount()) {
-    // buyOrder.setStatus("partially filled");
-    // sellOrder.setStatus("filled");
-    // buyOrder.setAmount(buyOrder.getAmount() - sellOrder.getAmount());
-    // } else if (buyOrder.getAmount() < sellOrder.getAmount()) {
-    // buyOrder.setStatus("filled");
-    // sellOrder.setStatus("partially filled");
-    // sellOrder.setAmount(sellOrder.getAmount() - buyOrder.getAmount());
-    // }
-
-    // // Update the order book
-    // if (buyOrder.getStatus().equals("filled")) {
-    // orderBook.removeOrder(buyOrder);
-    // } else {
-    // orderBook.updateOrder(buyOrder);
-    // }
-
-    // if (sellOrder.getStatus().equals("filled")) {
-    // orderBook.removeOrder(sellOrder);
-    // } else {
-    // orderBook.updateOrder(sellOrder);
-    // }
-    // }
-    // }
-    // }
-
-    // orderBookservice.updateOrderBook(orderBook);
 
     return "orderbook";
 
