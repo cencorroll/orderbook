@@ -1,8 +1,8 @@
 package com.ab.entities;
 
+// import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -33,13 +33,12 @@ public class Order {
   @Column(name = "order_date", nullable = false)
   private String orderDate;
 
-  @ManyToOne(fetch = FetchType.LAZY)
-  @JoinColumn(name = "order_book_id", referencedColumnName = "order_book_id")
-  private OrderBook orderBook;
+  // @ManyToOne(cascade = CascadeType.ALL)
+  // private OrderBook orderBook;
 
-  @ManyToOne(fetch = FetchType.LAZY)
-  @JoinColumn(name = "user_id", referencedColumnName = "user_id")
-  private User userId;
+  @ManyToOne
+  @JoinColumn(name = "user_id")
+  private User user;
 
   public int getOrderId() {
     return orderId;
@@ -49,31 +48,31 @@ public class Order {
     this.orderId = orderId;
   }
 
-  public String getType() {
+  public String getOrderType() {
     return orderType;
   }
 
-  public void setType(String type) {
-    this.orderType = type;
+  public void setOrderType(String orderType) {
+    this.orderType = orderType;
   }
 
-  public double getPrice() {
+  public double getOrderPrice() {
     return orderPrice;
   }
 
-  public void setPrice(double price) {
+  public void setOrderPrice(double price) {
     this.orderPrice = price;
   }
 
-  public int getAmount() {
+  public int getOrderAmount() {
     return orderAmount;
   }
 
-  public void setAmount(int amount) {
+  public void setOrderAmount(int amount) {
     this.orderAmount = amount;
   }
 
-  public String getStatus() {
+  public String getOrderStatus() {
     return orderStatus;
   }
 
@@ -89,20 +88,20 @@ public class Order {
     this.orderDate = orderDate;
   }
 
-  public OrderBook getOrderBook() {
-    return orderBook;
+  // public OrderBook getOrderBook() {
+  //   return orderBook;
+  // }
+
+  // public void setOrderBook(OrderBook orderBook) {
+  //   this.orderBook = orderBook;
+  // }
+
+  public User getUser() {
+    return user;
   }
 
-  public void setOrderBook(OrderBook orderBook) {
-    this.orderBook = orderBook;
-  }
-
-  public User getUserId() {
-    return userId;
-  }
-
-  public void setUserId(User userId) {
-    this.userId = userId;
+  public void setUser(User user) {
+    this.user = user;
   }
 
   // Constructors
@@ -110,22 +109,38 @@ public class Order {
     super();
   }
 
-  public Order(int orderId, String type, double price, int amount, String status, String orderDate, OrderBook orderBook, User userId) {
+  // public Orders(int orderId, String orderType, double price, int amount, String status, String orderDate, OrderBook orderBook, User userId) {
+  //   super();
+  //   this.userId = userId;
+  //   this.orderId = orderId;
+  //   this.orderType = orderType;
+  //   this.orderPrice = price;
+  //   this.orderAmount = amount;
+  //   this.orderStatus = status;
+  //   this.orderDate = orderDate;
+  //   this.orderBook = orderBook;
+  // }
+
+  // toString method
+  // @Override
+  // public String toString() {
+  //   return "Order [orderId=" + orderId + ", orderType=" + orderType + ", price=" + orderPrice + ", amount=" + orderAmount + ", status=" + orderStatus + ", orderDate=" + orderDate + ", orderBook=" + orderBook + ", userId=" + userId + "]";
+  // }
+
+  public Order(int orderId, String orderType, double price, int amount, String status, String orderDate, User userId) {
     super();
-    this.userId = userId;
+    this.user = userId;
     this.orderId = orderId;
-    this.orderType = type;
+    this.orderType = orderType;
     this.orderPrice = price;
     this.orderAmount = amount;
     this.orderStatus = status;
     this.orderDate = orderDate;
-    this.orderBook = orderBook;
   }
 
-  // toString method
   @Override
   public String toString() {
-    return "Order [orderId=" + orderId + ", type=" + orderType + ", price=" + orderPrice + ", amount=" + orderAmount + ", status=" + orderStatus + ", orderDate=" + orderDate + ", orderBook=" + orderBook + ", userId=" + userId + "]";
+    return "Order [orderId=" + orderId + ", orderType=" + orderType + ", orderPrice=" + orderPrice + ", orderAmount=" + orderAmount + ", orderStatus=" + orderStatus + ", orderDate=" + orderDate + ", userId=" + user + "]";
   }
 }
 

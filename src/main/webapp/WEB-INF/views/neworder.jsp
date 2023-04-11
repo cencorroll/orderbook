@@ -13,10 +13,13 @@
 		<h1>Create a new order</h1>
 		<div class="form">
 			<form method="POST" action="/newOrderProcess">
-				<p>
-					<label for="orderType">OrderType:</label> <input name="orderType"
-						id="orderType" />
-				</p>
+        <p>
+          <label for="orderType">OrderType:</label> 
+          <select name="orderType" id="orderType">
+            <option value="buy">Buy</option>
+            <option value="sell">Sell</option>
+          </select>
+        </p>
 				<p>
 					<label for="orderPrice">Initial Price:</label> <input name="orderPrice"
 						id="orderPrice" />

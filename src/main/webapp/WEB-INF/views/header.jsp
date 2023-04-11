@@ -39,6 +39,8 @@ li {
 					%>
 					<li><a href="/"><button>Home</button></a></li>
 					<li><a href="/neworder"><button>Create Order</button></a></li>
+					<li><a href="/orders"><button>Current Orders</button></a></li>
+					<li><a href="/orderhistory"><button>Order History</button></a></li>
 					<li>
 						<form action="/logout" method="GET">
 							<button type="submit">Logout</button>

@@ -16,11 +16,11 @@ public class OrderService {
   private OrderRepository orderRepository;
 
   public Order addOrder(Order order) {
-    List<Order> existingOrder = orderRepository.findById(order.getOrderId());
-    if (existingOrder != null) {
+    List<Order> existingOrder = orderRepository.findByOrderId(order.getOrderId());
+    if (!existingOrder.isEmpty()) {
       throw new IllegalArgumentException("Order already exists");
     } else {
-    if (order.getAmount() == 0 || order.getPrice() == 0 || order.getType() == null || order.getStatus() == null)
+    if (order.getOrderAmount() == 0 || order.getOrderPrice() == 0 || order.getOrderType() == null || order.getOrderStatus() == null)
       throw new IllegalArgumentException("Order cannot be null or empty");
       
     return orderRepository.save(order);
@@ -32,18 +32,18 @@ public class OrderService {
   }
 
   public Order getOrderById(int orderId) {
-    return orderRepository.findById(orderId).get(orderId);
+    return orderRepository.findByOrderId(orderId).get(0);
   }
 
   public List<Order> getAllOrders() {
     return orderRepository.findAll();
   }
 
-  public List<Order> findByUserId(User userId) {
-    return orderRepository.findByUserId(userId);
+  public List<Order> findByUser(User user) {
+    return orderRepository.findByUser(user);
   }
 
-  public List<Order> findByType(String type) {
-    return orderRepository.findByType(type);
+  public List<Order> findByType(String orderType) {
+    return orderRepository.findByOrderType(orderType);
   }
 }

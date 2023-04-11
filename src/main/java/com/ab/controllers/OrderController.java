@@ -12,10 +12,13 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.ab.entities.Order;
-import com.ab.entities.OrderBook;
+import com.ab.entities.OrderHistory;
+// import com.ab.entities.OrderBook;
 import com.ab.entities.User;
-import com.ab.repositories.OrderBookRepository;
+import com.ab.services.OrderHistoryService;
+// import com.ab.repositories.OrderBookRepository;
 import com.ab.services.OrderService;
+import com.ab.services.TradingEngine;
 
 import jakarta.servlet.http.HttpSession;
 
@@ -25,16 +28,31 @@ public class OrderController {
   @Autowired
   private OrderService orderService;
 
+  // @Autowired
+  // private OrderBookRepository orderBookRepository;
+
   @Autowired
-  private OrderBookRepository orderBookRepository;
+  private TradingEngine tradingEngine;
+
+  @Autowired
+  private OrderHistoryService orderHistoryService;
 
   @GetMapping("/orders")
-  private String getOrders(Model model, HttpSession session) {
+  private String getOrders(Model model) {
 
-    User user = (User) session.getAttribute("loggedInUser");
-      List<Order> orders = orderService.findByUserId(user);
+      List<Order> orders = orderService.getAllOrders();
       model.addAttribute("orders", orders);
       return "orders";
+    
+  }
+
+  @GetMapping("/myorders")
+  private String getMyOrders(Model model, HttpSession session) {
+
+    User user = (User) session.getAttribute("loggedInUser");
+      List<Order> orders = orderService.findByUser(user);
+      model.addAttribute("orders", orders);
+      return "myorders";
     
   }
 
@@ -49,24 +67,37 @@ public class OrderController {
     User user = (User) session.getAttribute("loggedInUser");
     LocalDateTime dateTime = LocalDateTime.now();
 		String formattedDate = dateTime.format(DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss"));
-    OrderBook orderBook = new OrderBook();
-    orderBook.setUserId(user);
-    orderBookRepository.save(orderBook);
-    System.out.println(orderBook);
+    // OrderBook orderBook = new OrderBook();
+    // orderBookRepository.save(orderBook);
+    // System.out.println(orderBook);
     
     Order o = new Order();
-    o.setUserId(user);
-    o.setType(orderType);
-    o.setPrice(orderPrice);
-    o.setAmount(orderAmount);
+    o.setUser(user);
+    o.setOrderType(orderType);
+    o.setOrderPrice(orderPrice);
+    o.setOrderAmount(orderAmount);
     o.setStatus("Not Filled");
     o.setOrderDate(formattedDate);
-    o.setOrderBook(orderBook);
+    // o.setOrderBook(orderBook);
     System.out.println(o);
     Order savedInfo = orderService.addOrder(o);
     System.out.println(savedInfo);
 
-    if (savedInfo != null) {
+    OrderHistory oH = new OrderHistory();
+    oH.setUser(user);
+    oH.setOrderType(orderType);
+    oH.setOrderPrice(orderPrice);
+    oH.setOrderAmount(orderAmount);
+    oH.setOrderStatus("Not Filled");
+    oH.setOrderDate(formattedDate);
+    // oH.setOrderBook(orderBook);
+    System.out.println(oH);
+    OrderHistory savedoHInfo = orderHistoryService.addOrderHistory(oH);
+    System.out.println(savedoHInfo);
+
+    tradingEngine.trade(session);
+
+    if (savedInfo != null && savedoHInfo != null) {
       return "redirect:/orders";
     } else {
       return "orderfailure";

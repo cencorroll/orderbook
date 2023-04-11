@@ -1,14 +1,14 @@
-package com.ab.repositories;
+// package com.ab.repositories;
 
-import org.springframework.data.jpa.repository.JpaRepository;
+// import org.springframework.data.jpa.repository.JpaRepository;
 
-import com.ab.entities.OrderBook;
-import com.ab.entities.User;
+// import com.ab.entities.OrderBook;
+// import com.ab.entities.User;
 
-public interface OrderBookRepository extends JpaRepository<OrderBook, Integer>{
+// public interface OrderBookRepository extends JpaRepository<OrderBook, Integer>{
 
-  // find orderbook by userid
-  OrderBook findByUserId(User userId);
+//   // find orderbook by userid
+//   OrderBook findByUserId(User userId);
   
   
-}
+// }

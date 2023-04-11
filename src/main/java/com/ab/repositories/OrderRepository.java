@@ -9,11 +9,11 @@ import com.ab.entities.User;
 
 public interface OrderRepository extends JpaRepository<Order, Integer>{
 
-  List<Order> findById(int orderId);
+  List<Order> findByOrderId(int orderId);
 
-  List<Order> findByUserId(User userId);
+  List<Order> findByUser(User user);
 
-  List<Order> findByType(String type);
+  List<Order> findByOrderType(String orderType);
 
   // List<Order> findByOrderBookId(int orderBookId);
   
